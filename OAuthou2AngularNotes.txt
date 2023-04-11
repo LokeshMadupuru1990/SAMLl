@@ -1,0 +1,93 @@
+Closed Captioning :
+We will open a folder for keeping the project.
+Now open a new terminal from
+Terminal Menu , New Terminal.
+Create an angular app 'sso-app' by typing the command
+'ng new sso-app'
+Press 'y' and hit 'Enter' to enable routing in angular.
+Select 'CSS' as the stylesheet format and hit 'Enter'.
+It will take some time to set up the new angular project.
+Now the angular project is set up.
+You can see the project structure in the 'Explore' section
+of VS Code.
+Let's install the oauth2 oidc package for angular.
+For that, change the current working directory to project folder.
+Type 'cd sso-app' in the terminal.
+Now type 'npm install angular-oauth2-oidc --save' in the terminal.
+Once the installation is completed, type 'ng serve --open'
+to run the angular application.
+On successful compilation, the application will open in the browser.
+This is the default angular application template.
+Let's change it.
+Inside the 'app' folder of the angular application,
+you can find 'app.component.html' file.
+Open it.
+Except the 'router-outlet' tag, delete everything else.
+Because, angular routing happens in the 'router-outlet'.
+Now we will add a 'div' tag with two buttons inside it.
+One for Login and another for Logout.
+Set click events.
+So that, on clicking these buttons, we will call the login and logout functions.
+We must define these functions inside the 'app.component.ts' file.
+Now, let's create an angular component 'home'.
+which should be displayed on successful login.
+For that, open a new terminal.
+Change current working directory,
+and type 'ng generate component home'.
+You can see the component created under the app folder.
+Now let's add URL routing for this component.
+Open the 'app-routing.module.ts' file.
+In the 'routes' variable, add path 'home'.
+Set the component as 'HomeComponent'.
+Also we will add default route path,
+which takes care of all invalid URL paths.
+We will redirect it to 'home' component.
+For the angular application to work properly,
+we must include the components, and import required modules in the 'app.module.ts' file.
+At the top of the file, import required items.
+Add the 'HomeComponent' inside the 'declarations' array.
+Add 'OAuthModule.forRoot()' inside the 'imports' array.
+Now we need to create a configuration file for oauth2.
+Create a file named 'sso.config.ts',
+inside the app folder.
+Now, add a constructor in the 'app.component.ts' file,
+and inject the 'OAuthService'.
+Create a function 'configureSingleSignOn',
+for configuring 'oauthService' variable.
+Inside the function, first we will call 'configure'.
+As a parameter, we should pass the configuration defined earlier in the 'sso.config.ts' file.
+Next, we will set a token validator.
+For that built-in validator 'JwksValidationHandler' can be used.
+Lastly, call the method 'loadDiscoveryDocumentAndTryLogin()'.
+These methods must be invoked while the component is being created.
+So, call the function 'configureSingleSignOn' inside the constructor.
+Inside the 'login()' function, call the method 'initImplicitFlow()'.
+And inside the 'logout()' function, call the method 'logout()'.
+Open browser and click on 'login' button.
+You can use the username as 'max',
+And password as 'geheim'.
+Now let's click on 'logout' button.
+Now, we will display the home component,
+only if the user logs in.
+For that, we will create a get accessor function 'token'.
+let's create a variable 'claims' for storing claims from the token,
+using the function 'getIdentityClaims()'.
+If the login was successful, we will return the claims,
+else will return null.
+Now call this get accessor function in the 'ngIf' of 'router-outlet'.
+So that, the 'home' component is loaded only on successful login.
+Now let's modify the 'home' component.
+open 'home.component.html' file.
+We will add some login success message here.
+Also we can set the visibility of buttons based on the login status.
+Just set the 'ngIf' for login and logout buttons, like this.
+Sometimes we need the application to take us
+to the login page automatically, without clicking any button.
+First we will delete the login and logout buttons,
+and it's associated functions.
+All we have to do is,
+replace the function call 'loadDiscoveryDocumentAndTryLogin()'
+with function 'loadDiscoveryDocumentAndLogin()'.
+We are redirected to the login page automatically.
+without clicking any button.
+106 Com
